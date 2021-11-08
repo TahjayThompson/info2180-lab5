@@ -2,6 +2,7 @@ window.onload = function() {
 
   const  input = document.getElementById('country');
   const  lookUp = document.getElementById('lookup');
+  const  cities = document.getElementById('cities');
   const  result = document.getElementById('result');
   const  httpReq= new XMLHttpRequest();
    
@@ -10,19 +11,27 @@ window.onload = function() {
 	httpReq.open('GET', url);
 	httpReq.send();
   }
-  lookUp.addEventListener('click', function(event) {
-	event.preventDefault();
-	const searchText = input.value;
-	let stored = searchText.trim();
-	const  url = `world.php?country=${stored}`;
-	REG(url);
-	console.log(stored)
 
-
+    lookUp.addEventListener('click', function(event) {
+    event.preventDefault();
+    const searchText = input.value;
+    let stored = searchText.trim();
+    const  url = `world.php?country=${stored}`;
+    REG(url);
   });
 
+    cities.addEventListener('click', function(event) {
+    event.preventDefault();
+    const searchText = input.value;
+    let save = searchText.trim();
+    const  url = `world.php?country=${save}&context=${save}`;
+    REG(url);
+  });
 
-  function callback() {
+  
+  
+  const callback=()=> {
+    input.value = '';
     if (httpReq.readyState === XMLHttpRequest.DONE) {
       if (httpReq.status === 200) {
         const res = httpReq.responseText;
